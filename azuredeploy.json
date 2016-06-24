@@ -23,6 +23,7 @@
         },
         "repoURL": {
             "type": "string",
+            "defaultValue": "https://github.com/Azure-Samples/functions-dotnet-sas-token.git",
             "metadata": {
                 "description": "Repo URL"
             }

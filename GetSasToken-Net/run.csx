@@ -26,12 +26,14 @@ public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceW
     }
 
     var permissions = SharedAccessBlobPermissions.Read; // default to read permissions
-    bool success = Enum.TryParse(data.permissions.ToString(), out permissions);
-
-    if (!success) {
-        return req.CreateResponse(HttpStatusCode.BadRequest, new {
-            error = "Invalid value for 'permissions'"
-        });
+    if (data.permissions != null) {
+        bool success = Enum.TryParse(data.permissions.ToString(), out permissions);
+    
+        if (!success) {
+            return req.CreateResponse(HttpStatusCode.BadRequest, new {
+                error = "Invalid value for 'permissions'"
+            });
+        }
     }
 
     var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["AzureWebJobsStorage"]);
